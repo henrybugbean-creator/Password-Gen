@@ -17,5 +17,14 @@ def random_password(length):
         
         
     return "".join(password)
-password = random_password(int(input("Enter the length of the password: ")))
+password = random_password(9)
 print(password)
+
+def personalized_password(length, name):
+    password = random_password(length)
+    personalized = list(password[length//2:] + name + password[:length//2])
+    return "".join(personalized)
+    
+
+print(personalized_password(9, input("Enter your name: ")))
+
