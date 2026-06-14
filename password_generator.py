@@ -8,6 +8,9 @@ def random_password(length):
     symbols = "!@#$%^&*()_+-=[]{}|;:,.<>?/"
     while len(password) != length:
         password = random.choices(letters, k=random.randint(1, 4)) + random.choices(digits, k=random.randint(1, 4)) + random.choices(symbols, k=random.randint(1, 4))
+        password_list = list(password)
+        random.shuffle(password_list)
+        password = "".join(password_list)
         if len(password) > length:
             password = password[:length]
 
@@ -27,4 +30,3 @@ def personalized_password(length, name):
     
 
 print(personalized_password(9, input("Enter your name: ")))
-
