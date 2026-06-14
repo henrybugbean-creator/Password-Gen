@@ -12,7 +12,7 @@ def random_password(length):
         return None
     password = ""
     while len(password) != length:
-        password = random.choices(letters, k=random.randint(1, 4)) + random.choices(digits, k=random.randint(1, 4)) + random.choices(symbols, k=random.randint(1, 4))
+        password = random.choices(letters, k=max) + random.choices(digits, k=max) + random.choices(symbols, k=max)
         password_list = list(password)
         random.shuffle(password_list)
         password = "".join(password_list)
@@ -29,7 +29,7 @@ def personalized_password(length, name):
         print("Password length exceeds maximum limit of 20 characters.")
         return None
     if len(name) >= length:
-        personalised = name + random.choices(letters + digits + symbols, k=random.randint(4, 6))
+        personalised = name + str(random.choices(letters + digits + symbols, k=random.randint(4, 6)))
         
     else:
         password = random_password(length)
