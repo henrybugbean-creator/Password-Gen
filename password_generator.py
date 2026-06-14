@@ -1,9 +1,11 @@
+
 import random
 letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 digits = "0123456789"
 symbols = "!@#$%^&*()_+-=[]{}|;:,.<>?/"
 max = 20
-
+with open("passwords.txt", "w") as file:  
+    file.write("PASSWORDS\n")  # Create the file if it doesn't exist
 def random_password(length):
     if length > max:
         print("Password length exceeds maximum limit of 20 characters.")
@@ -19,12 +21,8 @@ def random_password(length):
 
         if (letters in password) and (digits in password) and (symbols in password):
             break
-
-        
-        
     return "".join(password)
-password = random_password(9)
-print(password)
+
 
 def personalized_password(length, name):
     if length > max:
@@ -38,5 +36,29 @@ def personalized_password(length, name):
         personalised = list(password[length//2:] + name + password[:length//2])
     return "".join(personalised)
     
-
-print(personalized_password(9, input("Enter your name: ")))
+while True:
+    print("Welcome to the Password Generator!")
+    print("1. Generate a random password")
+    print("2. Generate a personalized password")
+    print("3. Exit")
+    choice = input("Enter your choice (1/2/3): ")
+    if choice == "1":
+        usecase = input("What is the password for: ")
+        length = int(input("Enter the desired password length (max 20): "))
+        password = random_password(length)
+        if password:
+            with open("passwords.txt", "a") as file:
+                file.write(f"{usecase} = {password}\n")
+    elif choice == "2":
+        usecase = input("What is the password for: ")
+        length = int(input("Enter the desired password length (max 20): "))
+        name = input("Enter your name: ")
+        password = personalized_password(length, name)
+        if password:
+            with open("passwords.txt", "a") as file:
+                file.write(f"{usecase} = {password}\n")
+    elif choice == "3":
+        print("Exiting the Password Generator. Goodbye!")
+        break
+    
+    
