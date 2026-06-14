@@ -4,6 +4,7 @@ letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 digits = "0123456789"
 symbols = "!@#$%^&*()_+-=[]{}|;:,.<>?/"
 max = 20
+default_directory = "passwords.txt"
 with open("passwords.txt", "w") as file:  
     file.write("PASSWORDS\n")  # Create the file if it doesn't exist
 def random_password(length):
@@ -37,17 +38,22 @@ def personalized_password(length, name):
     return "".join(personalised)
     
 while True:
-    print("Welcome to the Password Generator!")
+    print("Choose how to make you password!")
     print("1. Generate a random password")
     print("2. Generate a personalized password")
-    print("3. Exit")
-    choice = input("Enter your choice (1/2/3): ")
+    print("3. Make your own password")
+    print("4. View saved passwords")
+    print("5. Exit")
+    direcory = input("Enter the directory to save passwords (default is current directory): ")
+    if direcory == "":
+        direcory = default_directory
+    choice = input("Enter your choice (1/2/3/4/5): ")
     if choice == "1":
         usecase = input("What is the password for: ")
         length = int(input("Enter the desired password length (max 20): "))
         password = random_password(length)
         if password:
-            with open("passwords.txt", "a") as file:
+            with open(direcory, "a") as file:
                 file.write(f"{usecase} = {password}\n")
     elif choice == "2":
         usecase = input("What is the password for: ")
@@ -55,9 +61,19 @@ while True:
         name = input("Enter your name: ")
         password = personalized_password(length, name)
         if password:
-            with open("passwords.txt", "a") as file:
+            with open(direcory, "a") as file:
                 file.write(f"{usecase} = {password}\n")
     elif choice == "3":
+        usecase = input("What is the password for: ")
+        password = input("Enter your own password: ")
+        with open(direcory, "a") as file:
+            file.write(f"{usecase} = {password}\n")
+    elif choice == "4":
+        with open(direcory, "r") as file:
+            passwords = file.read().split("\n")
+            for password in passwords:
+                print(password)
+    elif choice == "5":
         print("Exiting the Password Generator. Goodbye!")
         break
     
